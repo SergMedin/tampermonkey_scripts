@@ -7,8 +7,8 @@
 // @match        *://*.sandbox.huntflow.dev/*
 // @match        *://*.avito.huntflow.ru/*
 // @grant        none
-// @updateURL    https://raw.githubusercontent.com/username/repository/branch/filename
-// @downloadURL  https://raw.githubusercontent.com/username/repository/branch/filename
+// @updateURL    https://raw.githubusercontent.com/SergMedin/tampermonkey_scripts/main/huntflow/auto_change_status.js
+// @downloadURL  https://raw.githubusercontent.com/SergMedin/tampermonkey_scripts/main/huntflow/auto_change_status.js
 // ==/UserScript==
 
 (function() {
