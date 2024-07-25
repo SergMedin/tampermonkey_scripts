@@ -3,22 +3,18 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.6
 // @description  Automatically change stages and select rejection reasons in Huntflow
-// @author       Sergo Medin
+// @author       You
 // @match        *://*.sandbox.huntflow.dev/*
 // @match        *://*.avito.huntflow.ru/*
 // @grant        none
+// @updateURL    https://raw.githubusercontent.com/username/repository/branch/filename
+// @downloadURL  https://raw.githubusercontent.com/username/repository/branch/filename
 // ==/UserScript==
 
 (function() {
-    'use strict'; 
     // Включение строгого режима для всего скрипта
-    // Строгий режим (strict mode) - это способ сделать ваш код более безопасным и предсказуемым.
-    // В строгом режиме:
-    // - Запрещено использование необъявленных переменных.
-    // - Вызывает ошибки при присвоении значений неконфигурируемым свойствам.
-    // - Запрещены некоторые некорректные действия, которые раньше игнорировались или приводили к странному поведению.
-    // Альтернативой является отсутствие строгого режима, что позволяет более свободный, но потенциально более ошибочный код.
-
+    'use strict'; 
+    
     // Константы для параметров
     const REJECTION_LABEL = 'Отказ';
     const REJECTION_REASON_LABEL = '1. Авито: по резюме';
