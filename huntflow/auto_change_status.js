@@ -2,7 +2,7 @@
 // @name         HuntFlow: Auto Change Stage
 // @namespace    http://tampermonkey.net/
 // @version      1.81
-// @description  Automatically change stages and select rejection reasons in Huntflow
+// @description  Автоматически отказывает по всем пунктам в Huntflow
 // @author       Sergo Medin
 // @match        *://*.sandbox.huntflow.dev/*
 // @match        *://*.avito.huntflow.ru/*
