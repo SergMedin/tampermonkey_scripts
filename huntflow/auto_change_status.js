@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.6
 // @description  Automatically change stages and select rejection reasons in Huntflow
-// @author       You
+// @author       Sergo Medin
 // @match        *://*.sandbox.huntflow.dev/*
 // @match        *://*.avito.huntflow.ru/*
 // @grant        none
