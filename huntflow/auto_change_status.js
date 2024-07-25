@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HuntFlow: Auto Change Stage
 // @namespace    http://tampermonkey.net/
-// @version      1.8
+// @version      1.81
 // @description  Automatically change stages and select rejection reasons in Huntflow
 // @author       Sergo Medin
 // @match        *://*.sandbox.huntflow.dev/*
@@ -122,7 +122,7 @@
                                     if (clickButtonWithText(SAVE_BUTTON_TEXT)) {
                                         index++;
                                         console.log("HF: Переход к следующей кнопке");
-                                        setTimeout(processNextButton, 1000); // ждем завершения действия сохранения
+                                        setTimeout(processNextButton, 999); // ждем завершения действия сохранения
                                     }
                                 }, 10);
                             }
