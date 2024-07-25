@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HuntFlow: Auto Change Stage
 // @namespace    http://tampermonkey.net/
-// @version      1.7
+// @version      1.8
 // @description  Automatically change stages and select rejection reasons in Huntflow
 // @author       Sergo Medin
 // @match        *://*.sandbox.huntflow.dev/*
