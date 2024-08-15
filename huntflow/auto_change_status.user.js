@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         HuntFlow: Auto Change Stage
 // @namespace    http://tampermonkey.net/
-// @version      1.85
+// @version      1.86
 // @description  Автоматически отказывает по всем пунктам в Huntflow
 // @author       Sergo Medin
 // @match        *://*.sandbox.huntflow.dev/*
 // @match        *://*.avito.huntflow.ru/*
 // @grant        none
-// @updateURL    https://raw.githubusercontent.com/SergMedin/tampermonkey_scripts/main/huntflow/auto_change_status.js
-// @downloadURL  https://raw.githubusercontent.com/SergMedin/tampermonkey_scripts/main/huntflow/auto_change_status.js
+// @updateURL    https://raw.githubusercontent.com/SergMedin/tampermonkey_scripts/main/huntflow/auto_change_status.user.js
+// @downloadURL  https://raw.githubusercontent.com/SergMedin/tampermonkey_scripts/main/huntflow/auto_change_status.user.js
 // ==/UserScript==
 
 (function() {
