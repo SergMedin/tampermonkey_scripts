@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HuntFlow: Data Extractor
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.01
 // @description  Выгружает данные из профилей в Excel файл
 // @author       Sergo Medin
 // @match        *://avito.huntflow.ru/*
@@ -11,8 +11,8 @@
 // @grant        GM_xmlhttpRequest
 // @connect      *
 // @require      https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js
-// @updateURL    https://raw.githubusercontent.com/SergMedin/tampermonkey_scripts/main/huntflow/extractor.js
-// @downloadURL  https://raw.githubusercontent.com/SergMedin/tampermonkey_scripts/main/huntflow/extractor.js
+// @updateURL    https://raw.githubusercontent.com/SergMedin/tampermonkey_scripts/main/huntflow/extractor.user.js
+// @downloadURL  https://raw.githubusercontent.com/SergMedin/tampermonkey_scripts/main/huntflow/extractor.user.js
 // ==/UserScript==
 
 (function() {
