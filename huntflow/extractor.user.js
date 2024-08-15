@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HuntFlow: Data Extractor
 // @namespace    http://tampermonkey.net/
-// @version      1.01
+// @version      1.02
 // @description  Выгружает данные из профилей в Excel файл
 // @author       Sergo Medin
 // @match        *://avito.huntflow.ru/*
