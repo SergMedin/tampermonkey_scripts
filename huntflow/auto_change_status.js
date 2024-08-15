@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HuntFlow: Auto Change Stage
 // @namespace    http://tampermonkey.net/
-// @version      1.81
+// @version      1.85
 // @description  Автоматически отказывает по всем пунктам в Huntflow
 // @author       Sergo Medin
 // @match        *://*.sandbox.huntflow.dev/*
@@ -12,42 +12,49 @@
 // ==/UserScript==
 
 (function() {
-    // Включение строгого режима для всего скрипта
-    'use strict'; 
-    
-    // Константы для параметров
-    const REJECTION_LABEL = 'Отказ';
-    const REJECTION_REASON_LABEL = '1. Авито: по резюме';
-    const SAVE_BUTTON_TEXT = 'Сохранить';
+    'use strict';
 
-    // Функция для создания и вставки кнопки
-    function createButton() {
-        console.log("HF: Попытка создать кнопку");
+    const parametersList = [
+        {
+            START_BUTTON_LABEL: 'Проставить везде: "по резюме"',
+            START_BUTTON_BACKGROUND_COLOR: '#28a745',
+            REJECTION_LABEL: 'Отказ',
+            REJECTION_REASON_LABEL: '1. Авито: по резюме',
+            SAVE_BUTTON_LABEL: 'Сохранить',
+            BUTTON_PROCESSING_MODE: 'all'
+        },
+        {
+            START_BUTTON_LABEL: 'Проставить кроме последеней "другая вакансия"',
+            START_BUTTON_BACKGROUND_COLOR: '#FFB347',
+            REJECTION_LABEL: 'Отказ',
+            REJECTION_REASON_LABEL: '1.7 Авито: переведен на другую вакансию',
+            SAVE_BUTTON_LABEL: 'Сохранить',
+            BUTTON_PROCESSING_MODE: 'allExceptLast'
+        }
+    ];
 
+    function createButtons() {
         const firstListItem = document.querySelector('li.root--GhuQk');
-        console.log("HF: Найден первый элемент списка:", firstListItem);
 
-        if (firstListItem) {
-            const button = document.createElement('button');
-            button.textContent = 'Проставить все статусы';
-            button.style.backgroundColor = '#28a745';
-            button.style.color = '#fff';
-            button.style.border = 'none';
-            button.style.padding = '10px 20px';
-            button.style.marginBottom = '10px';
-            button.style.cursor = 'pointer';
-            button.classList.add('button--Gh4nT', 'button', 'button_green', 'button--ISIoV', 'btn-change-status');
+        if (firstListItem && !document.querySelector('.btn-change-status')) {
+            parametersList.forEach(params => {
+                const button = document.createElement('button');
+                button.textContent = params.START_BUTTON_LABEL;
+                button.style.backgroundColor = params.START_BUTTON_BACKGROUND_COLOR;
+                button.style.color = '#fff';
+                button.style.border = 'none';
+                button.style.padding = '10px 20px';
+                button.style.marginBottom = '10px';
+                button.style.cursor = 'pointer';
+                button.classList.add('button--Gh4nT', 'button', 'button_green', 'button--ISIoV', 'btn-change-status');
 
-            firstListItem.insertBefore(button, firstListItem.firstChild);
-            console.log("HF: Кнопка создана и добавлена в первый элемент списка как первый дочерний элемент");
+                firstListItem.insertBefore(button, firstListItem.firstChild);
 
-            button.addEventListener('click', processAllStages);
-        } else {
-            console.log("HF: Первый элемент списка не найден, кнопка не создана");
+                button.addEventListener('click', () => processAllStages(params));
+            });
         }
     }
 
-    // Функция для создания и отображения баннера завершения
     function showCompletionBanner() {
         const banner = document.createElement('div');
         banner.textContent = 'Простановка статусов завершена';
@@ -70,14 +77,11 @@
         }, 3000);
     }
 
-    // Функция для клика по меткам с определенным текстом
     function clickLabelWithText(labelText) {
         const labels = document.querySelectorAll('label.itemName--_nDUF');
-        console.log("HF: Найдены метки с классом 'itemName--_nDUF':", labels);
 
         for (let label of labels) {
             if (label.textContent.includes(labelText)) {
-                console.log("HF: Клик по метке с текстом:", labelText);
                 label.click();
                 return true;
             }
@@ -85,14 +89,11 @@
         return false;
     }
 
-    // Функция для клика по кнопкам с определенным текстом
     function clickButtonWithText(buttonText) {
         const buttons = document.getElementsByClassName('button--Gh4nT');
-        console.log("HF: Найдены кнопки с классом 'button--Gh4nT':", buttons);
 
         for (let button of buttons) {
             if (button.textContent.includes(buttonText)) {
-                console.log("HF: Клик по кнопке с текстом:", buttonText);
                 button.click();
                 return true;
             }
@@ -100,29 +101,28 @@
         return false;
     }
 
-    // Функция для обработки всех кнопок "Сменить этап подбора"
-    function processAllStages() {
-        console.log("HF: Начало обработки всех этапов");
-
+    function processAllStages(params) {
         const changeStageButtons = document.querySelectorAll('button[data-qa="change_status_button"]');
-        console.log("HF: Найдены кнопки смены этапа:", changeStageButtons);
+        let buttonsToProcess = Array.from(changeStageButtons);
+
+        if (params.BUTTON_PROCESSING_MODE === 'allExceptLast') {
+            buttonsToProcess = buttonsToProcess.slice(0, -1);
+        }
 
         let index = 0;
 
         function processNextButton() {
-            if (index < changeStageButtons.length) {
-                console.log("HF: Обработка кнопки по индексу:", index);
-                changeStageButtons[index].click();
+            if (index < buttonsToProcess.length) {
+                buttonsToProcess[index].click();
 
                 setTimeout(() => {
-                    if (clickLabelWithText(REJECTION_LABEL)) {
+                    if (clickLabelWithText(params.REJECTION_LABEL)) {
                         setTimeout(() => {
-                            if (clickLabelWithText(REJECTION_REASON_LABEL)) {
+                            if (clickLabelWithText(params.REJECTION_REASON_LABEL)) {
                                 setTimeout(() => {
-                                    if (clickButtonWithText(SAVE_BUTTON_TEXT)) {
+                                    if (clickButtonWithText(params.SAVE_BUTTON_LABEL)) {
                                         index++;
-                                        console.log("HF: Переход к следующей кнопке");
-                                        setTimeout(processNextButton, 999); // ждем завершения действия сохранения
+                                        setTimeout(processNextButton, 1000);
                                     }
                                 }, 10);
                             }
@@ -130,7 +130,6 @@
                     }
                 }, 10);
             } else {
-                // Показываем баннер завершения после обработки всех этапов
                 showCompletionBanner();
             }
         }
@@ -138,9 +137,13 @@
         processNextButton();
     }
 
-    // Ждем полной загрузки страницы перед созданием кнопки
+    const observer = new MutationObserver(() => {
+        createButtons();
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
     window.addEventListener('load', () => {
-        console.log("HF: Страница загружена, ждем перед попыткой создания кнопки");
-        setTimeout(createButton, 1000); // Ждем 1 секунду перед созданием кнопки
+        setTimeout(createButtons, 500);
     });
 })();
