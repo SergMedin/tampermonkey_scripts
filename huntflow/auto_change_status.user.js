@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HuntFlow: Auto Change Stage
 // @namespace    http://tampermonkey.net/
-// @version      1.87
+// @version      1.88
 // @description  Автоматически отказывает по всем пунктам в Huntflow
 // @author       Sergo Medin
 // @match        *://*.sandbox.huntflow.dev/*
